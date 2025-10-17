@@ -16,31 +16,34 @@ Usage
 -----
 
 Import the package and create a new pool:
+```go
+import "github.com/almoatamed/go-conc/concpool"
 
-    import "github.com/almoatamed/go-conc/concpool"
-
-    p := concpool.New(10)
+p := concpool.New(10)
+```
 
 Submit tasks using `Run` and block until all tasks finish with `Wait`:
 
-    p.Run(func() error {
-        // do work
-        return nil
-    })
+```go
+p.Run(func() error {
+    // do work
+    return nil
+})
 
-    results := p.Wait()
+results := p.Wait()
+```
 
 API
 ---
 
 - func New(maxCount int) *Pool
-    - Creates a new pool that runs up to `maxCount` tasks concurrently. If `maxCount <= 0` the function will use `1`.
+  - Creates a new pool that runs up to `maxCount` tasks concurrently. If `maxCount <= 0` the function will use `1`.
 
 - func (p *Pool) Run(task func() error)
-    - Submit a task to the pool. Tasks are executed in FIFO order as workers free up.
+  - Submit a task to the pool. Tasks are executed in FIFO order as workers free up.
 
 - func (p *Pool) Wait() []TaskResult
-    - Blocks until all submitted tasks have completed and returns a slice of `TaskResult` in the order tasks completed.
+  - Blocks until all submitted tasks have completed and returns a slice of `TaskResult` in the order tasks completed.
 
 TaskResult
 ----------
